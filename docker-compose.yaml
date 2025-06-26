@@ -1,0 +1,35 @@
+services:
+  nextjs: 
+      container_name: nextjs-app
+      build: 
+        context: .
+        dockerfile: Dockerfile
+      ports: 
+        - "3000:3000"
+      environment: 
+        DATABASE_URL: ${DB_URI}
+      volumes: 
+        - ./src:/app/src  # Only syncs src directory
+        - ./public:/app/public  # Only syncs public directory
+      depends_on: 
+        - postgres
+      restart: unless-stopped
+      command: npm run dev
+  
+  postgres: 
+    image: postgres
+    container_name: pg-db
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data   
+
+    restart: unless-stopped
+
+volumes:
+  data: {}
+ 
