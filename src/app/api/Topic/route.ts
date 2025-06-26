@@ -1,5 +1,5 @@
 import { db } from "@/db/db";
-import { Task, Topic, User } from "@/db/schema";
+import { Task, Topic } from "@/db/schema";
 import { generateTasks } from "@/services/gemini"; 
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
@@ -24,9 +24,8 @@ export async function POST(req: NextRequest) {
 
         console.log(newTopic)
         
-        const tasks = await generateTasks(title);
-        console.log('tasks are ', tasks)
-        for(let t of tasks) {
+        const tasks = await generateTasks(title); 
+        for(const t of tasks) {
             await db.insert(Task).values({topic_id: newTopic.id, title: t})
         } 
 
@@ -37,7 +36,7 @@ export async function POST(req: NextRequest) {
     }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try{
         const {userId} = await auth();
         if(!userId) {

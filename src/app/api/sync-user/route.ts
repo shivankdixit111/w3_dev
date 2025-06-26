@@ -2,11 +2,11 @@ import { db } from "@/db/db";
 import { User } from "@/db/schema"; 
 import { auth, clerkClient } from "@clerk/nextjs/server"; 
 import { eq } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export const runtime = 'nodejs' //this fixes builtins errors
 
-export async function POST(req: NextRequest) {
+export async function POST() {
     try { 
 
        const { userId } = await auth();

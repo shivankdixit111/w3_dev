@@ -17,8 +17,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
-  const { setAuthorizationToken, setRefresh, setLoading } = useUserData()
-  const { user, loaded } = useClerk();
+  const { setAuthorizationToken, setRefresh } = useUserData()
+  const { user} = useClerk();
   const { getToken } = useAuth(); 
 
   async function findToken() {
