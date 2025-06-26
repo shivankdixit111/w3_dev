@@ -4,9 +4,9 @@ import Loader from '@/components/Loader'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useUserData } from '@/context/UserContext'
-import React, { FormEvent, ReactNode, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 
-const page = () => {
+const Page = () => {
   const [topic, setTopic] = useState<string>("")
   const {loading, setLoading, authorizationToken, setRefresh} = useUserData();
   if(loading) {
@@ -48,4 +48,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

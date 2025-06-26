@@ -3,10 +3,9 @@
 import { useUserData } from '@/context/UserContext'
 import { SignOutButton, SignUpButton, useAuth, useClerk } from '@clerk/nextjs'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import Loader from './Loader' 
+import { useEffect } from 'react' 
 
 const navigation = [
   { name: 'Home', href: '/', current: false },

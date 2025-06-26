@@ -1,17 +1,17 @@
 'use client'
 
 import Loader from '@/components/Loader';
-import { userDataContext, useUserData } from '@/context/UserContext'
-import React, { useContext, useState } from 'react'
+import { useUserData } from '@/context/UserContext'
+import React, {useState } from 'react'
 import { FaChevronRight } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 
-const page = () => {
+const Page = () => {
   const { topics, loading, authorizationToken, setLoading, setRefresh } = useUserData(); 
-  const [displayTasks, setDisplayTasks] = useState(false)
-  const [displayTaskId, setDisplayTaskId] = useState("")
-  const [editTaskContent, setEditTaskContent] = useState("")
-  const [editTaskId, setEditTaskId] = useState("")
+  const [displayTasks, setDisplayTasks] = useState<boolean>(false)
+  const [displayTaskId, setDisplayTaskId] = useState<string>("")
+  const [editTaskContent, setEditTaskContent] = useState<string>("")
+  const [editTaskId, setEditTaskId] = useState<string>("")
 
   if(loading) {
     return <Loader />
@@ -140,4 +140,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
