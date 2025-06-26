@@ -89,7 +89,7 @@ const Page = () => {
         <h1 className='font-extrabold text-2xl text-center m-4'>Your Topics with Tasks 📝</h1>
         <div className='flex flex-col gap-2 mt-4'>
             {topics.map((topic, idx)=> (
-                <div className='relative w-[90%] bg-orange-300 rounded mx-auto p-2'>
+                <div key={idx} className='relative w-[90%] bg-orange-300 rounded mx-auto p-2'>
                     <div className='flex justify-between mb-2 cursor-pointer' onClick={()=> {setDisplayTasks(prev=> !prev); setDisplayTaskId(topic.id)}}>
                         <div className='flex items-center gap-2 ml-2'>
                           <p className='font-bold'> { (displayTasks && displayTaskId===topic.id) ? <IoIosArrowDown /> :  <FaChevronRight />} </p>
@@ -105,7 +105,7 @@ const Page = () => {
                     {
                       (displayTasks && displayTaskId===topic.id) ? 
                       topic.tasks.map((task, idx)=> (
-                        <div className='flex justify-between p-2 bg-green-300 mb-2 rounded'>
+                        <div key={idx} className='flex justify-between p-2 bg-green-300 mb-2 rounded'>
                             {
                               editTaskId==task.id ?
                               <input 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Task, Topic } from '@/db/schema'
+import { Task } from '@/db/schema'
 import { InferSelectModel } from 'drizzle-orm'
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react' 
 
