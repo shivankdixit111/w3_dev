@@ -1,11 +1,9 @@
 'use client'
 
-import { useUserData } from '@/context/UserContext'
-import { SignOutButton, SignUpButton, useAuth, useClerk } from '@clerk/nextjs'
+import { SignOutButton, SignUpButton, useClerk } from '@clerk/nextjs'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { useEffect } from 'react' 
+import Link from 'next/link' 
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -16,36 +14,8 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
-  const { setAuthorizationToken, setRefresh } = useUserData()
-  const { user} = useClerk();
-  const { getToken } = useAuth(); 
-
-  async function findToken() {
-     const token = await getToken();
-     console.log(token)
-  }
-  findToken();
-
-  useEffect(()=> {
-      if(!user) return;
-      
-      async function SYNC_USER_IN_DB() { 
-          const token = await getToken();
-          setAuthorizationToken(token!); 
-
-          const response = await fetch("/api/sync-user", {
-            method: "POST",
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          })
-          const data = await response.json();
-          console.log('user is ', data) 
-          if(response.ok) setRefresh(prev=> !prev)   
-      }
-      SYNC_USER_IN_DB(); 
-  }, [user])
+export default function Navbar() { 
+  const { user} = useClerk(); 
 
   return (
     <Disclosure as="nav" className="bg-gray-800">

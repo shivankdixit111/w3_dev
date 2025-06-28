@@ -1,6 +1,7 @@
 'use client'
 
 import { Task } from '@/db/schema'
+import { useAuth, useClerk } from '@clerk/nextjs'
 import { InferSelectModel } from 'drizzle-orm'
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react' 
 
@@ -30,6 +31,18 @@ const UserContext = ({children}: {children: ReactNode}) => {
   const [topics, setTopics] = useState<Array<topicType>>([])
   const [authorizationToken, setAuthorizationToken] = useState<string>("") 
   const [loading, setLoading] = useState<boolean>(false) 
+  const { user } = useClerk();
+  const { getToken } = useAuth();
+
+  useEffect(()=> {
+   if(!user) return;
+   async function setToken() {
+      const token = await getToken();
+      setAuthorizationToken(token!);
+      setRefresh(prev=> !prev);
+   }
+   setToken(); 
+  },[user])
 
   useEffect(()=> {
       async function getData() {
