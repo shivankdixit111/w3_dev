@@ -2,7 +2,7 @@ import { db } from "@/db/db";
 import { User } from "@/db/schema";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST() {
     try {
