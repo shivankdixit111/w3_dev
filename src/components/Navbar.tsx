@@ -4,8 +4,8 @@ import { useUserData } from '@/context/UserContext'
 import { SignOutButton, SignUpButton, useClerk } from '@clerk/nextjs'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link' 
-import { NextRequest } from 'next/server'
+import Image from 'next/image'
+import Link from 'next/link'  
 import { useEffect } from 'react'
 
 const navigation = [
@@ -24,7 +24,7 @@ export default function Navbar() {
   useEffect(()=> {
     if(!user) return;
     async function SYNC_USER_IN_DB(){
-      const response = await fetch('/api/sync-user', {
+      await fetch('/api/sync-user', {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${authorizationToken}`
@@ -50,7 +50,7 @@ export default function Navbar() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <img
+              <Image
                 alt="Your Company"
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
                 className="h-8 w-auto"
