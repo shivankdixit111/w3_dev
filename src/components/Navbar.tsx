@@ -1,9 +1,12 @@
 'use client'
 
+import { useUserData } from '@/context/UserContext'
 import { SignOutButton, SignUpButton, useClerk } from '@clerk/nextjs'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link' 
+import { NextRequest } from 'next/server'
+import { useEffect } from 'react'
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -16,6 +19,21 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() { 
   const { user} = useClerk(); 
+  const { authorizationToken } = useUserData();
+
+  useEffect(()=> {
+    if(!user) return;
+    async function SYNC_USER_IN_DB(){
+      const response = await fetch('/api/sync-user', {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${authorizationToken}`
+        }
+      })
+    }
+
+    SYNC_USER_IN_DB();
+  },[user])
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
